@@ -48,6 +48,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Size;
@@ -80,6 +81,7 @@ public class Camera2BasicFragment extends Fragment
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
+    int mStackLevel = 0;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -366,6 +368,16 @@ public class Camera2BasicFragment extends Fragment
     }
 
     /**
+     * Shows a {@link Toast} on the UI thread.
+     *
+     * @param text The message to show
+     */
+    private void showToast2(final String text) {
+        final Activity activity = getActivity();
+        Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * Given {@code choices} of {@code Size}s supported by a camera, choose the smallest one that
      * is at least as large as the respective texture view size, and that is at most as large as the
      * respective max size, and whose aspect ratio matches with the specified value. If such size
@@ -428,6 +440,7 @@ public class Camera2BasicFragment extends Fragment
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         view.findViewById(R.id.picture).setOnClickListener(this);
         view.findViewById(R.id.info).setOnClickListener(this);
+        view.findViewById(R.id.btn_dialog).setOnClickListener(this);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
@@ -901,6 +914,10 @@ public class Camera2BasicFragment extends Fragment
                 }
                 break;
             }
+            case R.id.btn_dialog:{
+                showDialog();
+                break;
+            }
         }
     }
 
@@ -1033,4 +1050,21 @@ public class Camera2BasicFragment extends Fragment
         }
     }
 
+    void showDialog() {
+        mStackLevel++;
+
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = DetectingAreaFragment.newInstance(mStackLevel);
+        newFragment.show(ft, "dialog");
+    }
 }

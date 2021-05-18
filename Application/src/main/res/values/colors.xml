@@ -16,4 +16,11 @@
 -->
 <resources>
     <color name="control_background">#cc4285f4</color>
+    <color name="yellow">#FFFFBB33</color>
+    <color name="blue">#0099CC</color>
+    <color name="purple">#FFAA66CC</color>
+    <string name="yellow">#FFFFBB33</string>
+    <string name="yellow_overlay">#80FFBB33</string>
+    <string name="blue">#0099CC</string>
+    <string name="purple">#FFAA66CC</string>
 </resources>
