@@ -92,8 +92,15 @@ public class DetectingAreaFragment extends DialogFragment {
                 new Point(50,20), new Point(250,20),
                 new Point(250,120), new Point(50,120),
                 screenWidth, screenHeight);
+/*
+        customView2 = new CustomView(getActivity().getApplicationContext(),
+                new Point(150,120), new Point(350,120),
+                new Point(350,220), new Point(150,220),
+                screenWidth, screenHeight, canvas);
+*/
 
         framelayout.addView(customView1);
+        //framelayout.addView(customView2);
 
     }
 

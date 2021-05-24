@@ -73,10 +73,6 @@ public class CustomView extends View implements View.OnTouchListener {
     }
 
 
-    public CustomView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
     public CustomView(Context context, AttributeSet attrs, Point p1, Point p2, Point p3, Point p4, int screenWidth, int screenHeight) {
         super(context, attrs);
         paint = new Paint();

@@ -4,14 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/cardview_shadow_start_color"
     android:orientation="vertical">
-
-    <com.example.android.camera2basic.CustomView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00000000"
-        android:id="@+id/custom"/>
-
-    <com.example.android.camera2basic.CustomView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"
